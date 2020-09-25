@@ -1,0 +1,127 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+	<!-- Hero
+		=================================================== -->
+	<section id="hero">
+
+		<div class="row hero-content">
+
+			<div class="twelve columns flex-container">
+
+				<div id="hero-slider" class="flexslider">
+
+					<ul class="slides">
+
+						<!-- Slide -->
+						<li>
+							<div class="flex-caption">
+								<h1>Hello, we are puremedia. We make awesome and stunning digital stuff.</h1>
+								<p><a class="button stroke smoothscroll" href="#about">More About Us</a></p>
+							</div>
+						</li>
+
+						<!-- Slide -->
+						<li>
+							<div class="flex-caption">
+								<h1>We imagine, craft and manage your brand in this new digital world.</h1>
+								<p><a class="button stroke smoothscroll" href="#portfolio">See Our Works</a></p>
+							</div>
+						</li>
+
+						<!-- Slide -->
+						<li>
+							<div class="flex-caption">
+								<h1>Take a look at some of <a class="smoothscroll" href="#portfolio" title="">our
+										works</a> or <a class="smoothscroll" href="#contact" title="">contact us</a> to
+									discuss how we can help you.</h1>
+								<p><a class="button stroke smoothscroll" href="#contact">Get In Touch</a></p>
+							</div>
+						</li>
+
+					</ul>
+
+				</div> <!-- .flexslider -->
+
+			</div> <!-- .flex-container -->
+
+		</div> <!-- .hero-content -->
+
+	</section> <!-- #hero -->
+
+
+	<!-- Portfolio
+		================================================== -->
+	<section id="portfolio">
+
+		<div class="row section-head">
+
+			<div class="twelve columns">
+
+				<h1>Latest Posts<span>.</span></h1>
+
+				<hr />
+
+
+			</div>
+
+		</div>
+
+		<div class="row items">
+
+			<div class="twelve columns">
+
+				<div id="portfolio-wrapper" class="bgrid-fourth s-bgrid-third mob-bgrid-half group">
+					{% for post in posts %}
+					<div class="bgrid item">
+						<div class="item-wrap">
+
+							<a href="{% url 'post-detail' post.id %}">
+								<img src="{{ post.image_1.url }}" alt="Grizzly">
+								<div class="overlay"></div>
+								<div class="portfolio-item-meta">
+									<h5>{{ post.title }}</h5>
+									<p>{{  post.content }}</p>
+								</div>
+							</a>
+
+						</div>
+					</div> <!-- /item -->
+					{% endfor %}
+
+					<nav class="pagination">
+						{% if is_paginated %}
+						
+						{% if page_obj.has_previous %}
+						<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+						<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+						{% endif %}
+						
+						{% for num in page_obj.paginator.page_range %}
+						{% if page_obj.number == num %}
+						<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+						{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+						<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+						{% endif %}
+						{% endfor %}
+						
+						{% if page_obj.has_next %}
+						<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+						<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+						{% endif %}
+						
+						{% endif %}
+					</nav>
+
+				</div> <!-- /portfolio-wrapper -->
+
+			</div> <!-- /twelve -->
+
+		</div> <!-- /row -->
+
+	</section> <!-- /Portfolio -->
+
+	<hr />
+
+
+{% endblock content %}

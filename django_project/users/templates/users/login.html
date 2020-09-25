@@ -1,0 +1,67 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <section id="contact">
+
+        <div class="row section-head">
+
+            <div class="twelve columns">
+
+                <h1>Login<span>.</span></h1>
+
+                <hr />
+
+                <p>
+                    Login into your account, so you can use all of our website functionalities
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="row form-section">
+
+            <div id="contact-form" class="twelve columns">
+
+                <form id="contactForm" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+
+                        <div class="row">
+
+                            <div class="twelve columns mob-whole">
+                                {{ form|crispy }}
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <button class="submit full-width" type="submit">Sign In</button>
+                            <div id="image-loader">
+                                <img src="images/loader.gif" alt="" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <small class="text-muted">
+                                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a>
+                            </small>
+                        </div>
+
+                    </fieldset>
+
+                </form> <!-- /contactForm -->
+
+                <!-- message box -->
+                <div id="message-warning"></div>
+                <div id="message-success">
+                    <i class="fa fa-check"></i>You are now logged in!<br />
+                </div>
+
+            </div> <!-- /contact-form -->
+
+        </div> <!-- /form-section -->
+
+    </section> <!-- /contact-->
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <section id="contact">
+
+        <div class="row section-head">
+
+            <div class="twelve columns">
+
+                <h1>You were logged out!<span>.</span></h1>
+
+                <hr />
+
+                <a href="{% url 'login' %}">Login again</a>
+
+            </div>
+
+        </div>
+
+    </section> <!-- /contact-->
+
+{% endblock content %}

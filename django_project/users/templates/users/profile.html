@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <!-- Page Title
+            ================================================== -->
+    <section id="page-title">
+
+        <div class="row">
+
+            <div class="twelve columns">
+
+                <h1>Your Account Info<span>.</span></h1>
+
+            </div>
+
+        </div> <!-- /row -->
+
+    </section> <!-- /page-title -->
+
+    <section id="contact">
+        <div class="row form-section">
+
+            <div id="contact-form" class="twelve columns">
+
+                <div class="content-section">
+                    <div class="media">
+                        <img class="rounded-circle account-img"
+                            src="{{ user.profile.image.url }}" height="70"
+                            width="70">
+                        <div class="media-body">
+                            <h2 class="account-heading">{{ user.username }}</h2>
+                            <p class="text-secondary">{{ user.email }}</p>
+                        </div>
+                    </div>
+
+                    <form name="contactForm" id="contactForm" method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset>
+                    
+                            <div class="row">
+                    
+                                <div class="twelve columns mob-whole">
+                                    {{ u_form|crispy }}
+                                    {{ p_form|crispy }}
+                                    <button class="submit full-width" type="submit">Update Account</button>
+                                </div>
+                    
+                            </div>
+                    
+                        </fieldset>
+                    
+                    </form> <!-- /contactForm -->
+
+                    <!-- message box -->
+                    <div id="message-warning"></div>
+                    <div id="message-success">
+                        <i class="fa fa-check"></i>Your message was sent, thank you!<br />
+                    </div>
+
+                </div> <!-- /contact-form -->
+
+            </div> <!-- /form-section -->
+    </section>
+{% endblock content %}

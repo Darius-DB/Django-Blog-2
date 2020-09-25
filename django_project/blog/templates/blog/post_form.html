@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <section id="contact">
+
+        <div class="row section-head">
+
+            <div class="twelve columns">
+
+                <h1>Add Post<span>.</span></h1>
+
+                <hr />
+
+                <p>
+                    Share your thoughts with everyone
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="row form-section">
+
+            <div id="contact-form" class="twelve columns">
+
+                <form id="contactForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+
+                        <div class="row">
+
+                            <div class="twelve columns mob-whole">
+                                {{ form|crispy }}
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <button class="submit full-width" type="submit">Pos</button>
+                            <div id="image-loader">
+                                <img src="images/loader.gif" alt="" />
+                            </div>
+                        </div>
+
+                        
+
+                    </fieldset>
+
+                </form> <!-- /contactForm -->
+
+                <!-- message box -->
+                <div id="message-warning"></div>
+                <div id="message-success">
+                    <i class="fa fa-check"></i>Your account was created!<br />
+                </div>
+
+            </div> <!-- /contact-form -->
+
+        </div> <!-- /form-section -->
+
+    </section> <!-- /contact-->
+
+{% endblock content %}

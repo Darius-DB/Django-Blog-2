@@ -1,0 +1,147 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <!-- Page Title
+    ================================================== -->
+    <section id="page-title">
+
+        <div class="row">
+
+            <div class="twelve columns">
+
+                <h1>Portfolio<span>.</span></h1>
+                <p>Aenean condimentum lacus sit amet luctus lobortis.</p>
+
+            </div>
+
+        </div> <!-- /row -->
+
+    </section> <!-- /page-title -->
+
+
+    <!-- Content
+    ================================================== -->
+    <section id="content">
+
+        <div class="row portfolio-content">
+
+            <div class="entry tab-whole nine columns centered">
+
+                <header class="entry-header">
+
+                    <h1 class="entry-title">
+                        {{ object.title }}
+                    </h1>
+
+                    <div class="entry-meta">
+                        <ul>
+                            <li>{{ object.date_posted|date:"F d, Y" }}</li>
+                            <span class="meta-sep">•</span>
+                            <li>
+                                <a rel="skills tag" title=""
+                                    href="{% url 'user-posts' object.id %}">{{ object.author }}</a>,
+
+                            </li>
+                            <span class="meta-sep">•</span>
+                            <li><a rel="client" title="" href="#">styleshout</a></li>
+                        </ul>
+                    </div>
+
+                </header>
+
+                <div class="entry-content">
+                    <p class="lead">{{ object.content }}</p>
+
+
+                </div>
+
+                <div class="entry-content-media">
+                    <div class="post-thumb">
+                        <img src="{{ object.image_1.url }}">
+                        <img src="{{ object.image_2.url }}">
+                    </div>
+                </div>
+
+                {% if object.author == user %}
+                <div class="">
+                    <a class="button round blue " href="{% url 'post-update' object.id %}">Update</a>
+                    <a class="button round red" href="{% url 'post-delete' object.id %}">Delete</a>
+                </div>
+                {% endif %}
+
+                <div class="pagenav group">
+                    <span class="prev"><a href="" rel="prev">Previous</a></span>
+                    <span class="next"><a href="" rel="next">Next</a></span>
+                </div>
+
+            </div> <!-- /entry -->
+
+        </div> <!-- /portfolio-content -->
+
+        <div class="row">
+
+            <div id="main" class="tab-whole eight columns">
+                <div id="comments">
+                    
+                    <h3>{{ comments.total }}</h3>
+
+                    <ol class="commentlist">
+                        {% for comment in comments %}
+                        <li class="depth-1">
+
+                            <div class="avatar">
+                                <img width="50" height="50" alt=""
+                                    src="{{ comment.user.profile.image.url }}"
+                                    class="avatar">
+                            </div>
+
+                            <div class="comment-content">
+
+                                <div class="comment-info">
+                                    <cite>{{ comment.user }}</cite>
+
+                                    <div class="comment-meta">
+                                        <time datetime="2014-07-12T23:05"
+                                            class="comment-time">{{ comment.date_added|date:"F d, Y" }}</time>
+
+                                    </div>
+                                </div>
+
+                                <div class="comment-text">
+                                    <p>{{ comment.content }}</p>
+                                </div>
+
+                            </div>
+
+                        </li>
+                        {% endfor %}
+                    </ol> <!-- /commentlist -->
+
+
+                    <!-- respond -->
+                    <div class="respond">
+
+                        <h3>Leave a Comment</h3>
+
+                        <!-- form -->
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <fieldset>
+
+                                <div class="group">
+                                    {{ form|crispy }}
+                                    <button class="submit full-width" type="submit">Add Comment</button>
+                                </div>
+
+                            </fieldset>
+                        </form> <!-- /contactForm -->
+
+                    </div> <!-- /respond -->
+
+                </div> <!-- /comments -->
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

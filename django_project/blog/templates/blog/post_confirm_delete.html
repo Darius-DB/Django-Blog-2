@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <section id="contact">
+
+        <div class="row section-head">
+
+            <div class="twelve columns">
+
+                <h1>Delete Post<span>.</span></h1>
+
+                <hr />
+
+                <p>
+                    Are you sure you want to delete the post "{{ object.title }}"
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="row form-section">
+
+            <div id="contact-form" class="twelve columns">
+
+                <form id="contactForm" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+
+                        <div>
+                            <button class="submit full-width" type="submit">Delete</button>
+                            <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+                            <div id="image-loader">
+                                <img src="images/loader.gif" alt="" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <small class="text-muted">
+                                Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+                            </small>
+                        </div>
+
+                    </fieldset>
+
+                </form> <!-- /contactForm -->
+
+                <!-- message box -->
+                <div id="message-warning"></div>
+                <div id="message-success">
+                    <i class="fa fa-check"></i>Your account was created!<br />
+                </div>
+
+            </div> <!-- /contact-form -->
+
+        </div> <!-- /form-section -->
+
+    </section> <!-- /contact-->
+
+{% endblock content %}
