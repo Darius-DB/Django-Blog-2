@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from .forms import CommentForm
 from django.contrib import messages
 from django.http import HttpResponse
 from .models import Post, Comments
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -34,6 +36,24 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    form_class = CommentForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Comment added')
+            return redirect('post-detail')
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        if self.object:
+            context['object'] = self.object
+            # modify this queryset according to how you want to display comments
+            context['comments'] = Comments.objects.all()
+
+        context.update(kwargs)
+        return super().get_context_data(**context)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
